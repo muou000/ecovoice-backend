@@ -8,7 +8,7 @@ import time
 import database.insert
 import database.base
 import database.select
-
+import database.delete
 
 app = FastAPI()
 
@@ -42,6 +42,14 @@ async def select_user(uid: int):
 
 @app.post("/select/file")
 async def select_file(uid: int):
-    files = database.select.selectFile(uid, )
+    files = database.select.selectFileByUid(uid, )
     return {"files": files,
             "file_count": len(files)}
+
+@app.post("/delete/user")
+async def delete_user(uid: int):
+    return {"message": database.delete.deleteUser(uid)}
+
+@app.post("/delete/file")
+async def delete_file(file_id: int):
+    return {"message": database.delete.deleteFile(file_id)}
