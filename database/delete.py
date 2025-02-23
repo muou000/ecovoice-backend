@@ -2,9 +2,9 @@ import sqlite3
 import database.select
 
 def deleteUser(uid):
-    userExist = database.select.selectUser(uid)
+    userExist = database.select.selectUserByUid(uid)
     if userExist == "User not found!":
-        return "User not found!"
+        return userExist
     con = sqlite3.connect('database.db')
     cursor = con.cursor()
     cursor.execute("""
@@ -16,7 +16,7 @@ def deleteUser(uid):
 def deleteFile(file_id):
     fileExist = database.select.selectFileByFid(file_id)
     if fileExist == "File not found!":
-        return "File not found!"
+        return fileExist
     con = sqlite3.connect('database.db')
     cursor = con.cursor()
     cursor.execute("""

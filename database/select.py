@@ -1,10 +1,21 @@
 import sqlite3
 
-def selectUser(uid):
+def selectUserByUid(uid):
     con = sqlite3.connect('database.db')
     cursor = con.cursor()
     cursor.execute("""
                   SELECT * FROM users WHERE id=?""", (uid,))
+    user = cursor.fetchone()
+    con.close()
+    if user is None:
+        return "User not found!"
+    return user
+
+def selectUserByUsername(username):
+    con = sqlite3.connect('database.db')
+    cursor = con.cursor()
+    cursor.execute("""
+                  SELECT * FROM users WHERE username=?""", (username,))
     user = cursor.fetchone()
     con.close()
     if user is None:
