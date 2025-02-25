@@ -9,6 +9,7 @@ import database.base
 import database.select
 import database.delete
 import security.security
+import globalVariables
 
 app = FastAPI()
 
@@ -18,10 +19,9 @@ async def readRoot():
 
 @app.post("/upload")
 async def file_upload(file: UploadFile, uid: int):
-    directory = "D:/testfile"
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-    path = os.path.join(directory, file.filename)
+    if not os.path.exists(globalVariables.directory):
+        os.makedirs(globalVariables.directory)
+    path = os.path.join(globalVariables.directory, file.filename)
     
     with open(path, "wb") as f:
         content = await file.read()
